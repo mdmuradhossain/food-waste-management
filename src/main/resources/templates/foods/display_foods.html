@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Food List</title>
+    <!-- Include any necessary CSS files -->
+</head>
+<body>
+<h1>Food List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="food : ${foods}">
+        <td th:text="${food.name}"></td>
+        <td th:text="${food.description}"></td>
+        <td th:text="${food.price}"></td>
+        <td>
+            <span th:if="${food.quantity > 0}" th:text="${food.quantity}"></span>
+            <span th:if="${food.quantity == 0}" class="out-of-stock">Out of Stock</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- Include any necessary JavaScript files -->
+</body>
+</html>
