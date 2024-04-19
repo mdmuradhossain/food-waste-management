@@ -25,6 +25,8 @@ public class WebSecurityConfig {
                         authz.requestMatchers("/", "/register", "/profile", "/user").permitAll()
                                 .requestMatchers("/donor-dashboard/**").hasRole("DONOR")
                                 .requestMatchers("/foods/**").hasRole("DONOR")
+                                .requestMatchers("/cart/**").hasAnyRole("DONOR", "CONSUMER")
+                                .requestMatchers("/order/**").hasAnyRole("DONOR", "CONSUMER")
                                 .requestMatchers("/consumer-dashboard/**").hasRole("CONSUMER")
                                 .anyRequest()
                                 .authenticated()

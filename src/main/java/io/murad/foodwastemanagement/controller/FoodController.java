@@ -2,21 +2,27 @@ package io.murad.foodwastemanagement.controller;
 
 import io.murad.foodwastemanagement.model.Food;
 import io.murad.foodwastemanagement.service.FoodService;
-import lombok.AllArgsConstructor;
+import io.murad.foodwastemanagement.utility.Helper;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Controller
 //@RequestMapping(value = "/donor-dashboard")
 public class FoodController {
 
+    @Autowired
     private FoodService foodService;
+
+//    public FoodController(FoodService foodService){
+//        this.foodService = foodService;
+//    }
 
     @GetMapping(value = "/foods")
     public String getAllFoods(Model model) {
@@ -27,14 +33,15 @@ public class FoodController {
 
     @GetMapping("/foods/showAddFoodForm")
     public String addFood(Model model) {
-        model.addAttribute("food",new Food());
+        model.addAttribute("food", new Food());
         return "foods/add_food";
     }
 
     @PostMapping("/foods/add")
-    public String addFood(@ModelAttribute("food") Food food) {
+    public String addFood(@ModelAttribute("food") Food food, Model model) {
         foodService.save(food);
-        return "Food Added";
+        model.addAttribute("message", "Successfully food added.");
+        return "redirect:/foods";
     }
 
     @PutMapping("/foods/{id}")

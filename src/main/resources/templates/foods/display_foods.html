@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Food List</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Include any necessary CSS files -->
 </head>
 <body>
@@ -25,9 +26,25 @@
             <span th:if="${food.quantity > 0}" th:text="${food.quantity}"></span>
             <span th:if="${food.quantity == 0}" class="out-of-stock">Out of Stock</span>
         </td>
+        <td th:if="${food.quantity > 0}">
+            <form th:action="@{/cart/addToCart/{foodId}(foodId=${food.id})}" method="post">
+                <input type="hidden" name="foodId" th:value="${food.id}">
+                <input type="number" name="quantity" value="1" min="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
 <!-- Include any necessary JavaScript files -->
+<script>
+    const msg = "[[${message}]]";
+
+    Swal.fire({
+        title: "Alert",
+        text: msg,
+        icon: "success"
+    });
+</script>
 </body>
 </html>

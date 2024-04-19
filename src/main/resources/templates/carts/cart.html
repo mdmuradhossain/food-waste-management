@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+<h1>Shopping Cart</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${cart.items}">
+        <td th:text="${item.food.name}"></td>
+        <td th:text="${item.food.description}"></td>
+        <td th:text="${item.food.price}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td>
+            <form th:action="@{/cart/remove/{foodId}(foodId=${item.food.id})}" method="post">
+                <input type="submit" value="Remove">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/orders/placeOrder}" method="post">
+    <input type="submit" value="Place Order">
+</form>
+</body>
+</html>
