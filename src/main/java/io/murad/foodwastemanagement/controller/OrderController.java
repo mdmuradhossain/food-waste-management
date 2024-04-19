@@ -25,7 +25,7 @@ public class OrderController {
     private CartService cartService;
 
     @PostMapping("/placeOrder")
-    public String placeOrder(Model model, Principal principal) {
+    public String placeOrder(Principal principal) {
         String username = principal.getName();
         Cart cart = cartService.getCartByUsername(username);
         orderService.placeOrder(username, cart);

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 //@Transactional
 public class CartService {
@@ -32,33 +34,42 @@ public class CartService {
         User user = userRepository.findByUsername(username);
         return user != null ? user.getCart() : null;
     }
-//    @Transactional
+
+    @Transactional
     public void addToCart(String username, Long foodId) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
-            Food food = foodRepository.findById(foodId).orElse(null);
+            Food food = foodRepository.findById(foodId).orElseThrow(()-> new NoSuchElementException("Food is empty"));
             if (food != null) {
                 Cart cart = user.getCart();
                 if (cart == null) {
                     cart = new Cart();
-                    cart.setUser(user); // Associate cart with user
+                    cart.setUser(user);
+                    cart = cartRepository.save(cart); // Save the cart and retrieve the updated instance
                     user.setCart(cart);
                 }
+                // Check if the item is already in the cart
                 CartItem cartItem = cartItemRepository.findByCartAndFood(cart, food);
                 if (cartItem != null) {
+                    // Increment the quantity if the item is already in the cart
                     cartItem.setQuantity(cartItem.getQuantity() + 1);
                 } else {
+                    // Create a new cart item and add it to the cart
                     cartItem = new CartItem();
                     cartItem.setFood(food);
                     cartItem.setQuantity(1);
                     cartItem.setCart(cart);
-                    cart.getItems().add(cartItem);
+                    cart.getItems().add(cartItem); // Add the item to the cart
                 }
-                cartItemRepository.save(cartItem); // Save cart item
-                cartRepository.save(cart); // Save cart
+                // Save the cart item
+                cartItemRepository.save(cartItem);
             }
+        } else {
+            // Log error or handle user not found
+            System.out.println("User not found for username: " + username);
         }
     }
+
 
     public void removeFromCart(String username, Long foodId) {
         User user = userRepository.findByUsername(username);
