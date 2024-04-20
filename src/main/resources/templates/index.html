@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:replace="~{header/header :: head}">
     <meta charset="UTF-8">
     <title>Home | Food Waste Management System</title>
     <meta aria-description="A sustainable web-based solution for Food waste management.">
+    <th:insert th:fragment="~{header/header :: head}"></th:insert>
 </head>
 <body>
-<a th:href="@{/register}">Create an Account</a>
-<div th:if="${#authorization.expression('isAuthenticated()')}">
-    <a th:href="@{/profile}">Profile</a>
-</div>
-
-<!-- Add login and logout links -->
-<div th:if="${#authorization.expression('isAuthenticated()')}">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
-    </form>
-</div>
+<div th:replace="~{header/header :: header}"></div>
+<div th:replace="~{header/header :: js-links}"></div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
+
+<!--<div th:if="${#authorization.expression('isAuthenticated()')}">-->
+<!--    <a th:href="@{/profile}">Profile</a>-->
+<!--</div>-->
+
+<!-- Add login and logout links -->
+<!--<div th:if="${#authorization.expression('isAuthenticated()')}">-->
+<!--    <form th:action="@{/logout}" method="post">-->
+<!--        <input type="submit" value="Logout"/>-->
+<!--    </form>-->
+<!--</div>-->

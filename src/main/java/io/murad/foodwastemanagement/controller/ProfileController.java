@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @AllArgsConstructor
@@ -15,10 +14,11 @@ public class ProfileController {
 
     private UserService userService;
 
-    @GetMapping("/user")
-    public String profile(Model model) {
-        List<User> users = userService.users();
-        model.addAttribute("users", users);
+    @GetMapping("/{username}")
+    public String profile(@PathVariable("username") String username, Model model) {
+        User user = userService.getUser(username);
+        model.addAttribute("username", username);
+        model.addAttribute("user", user);
         return "profile";
     }
 
