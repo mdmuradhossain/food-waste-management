@@ -7,7 +7,10 @@
     <th:insert th:fragment="~{header/header :: head}"></th:insert>
 </head>
 <body>
-<div th:replace="~{header/header :: header}"></div>
+<header th:replace="~{header/header :: header}"></header>
+<main>
+    <div th:replace="~{foods/display_foods :: food}"></div>
+</main>
 <div th:replace="~{header/header :: js-links}"></div>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

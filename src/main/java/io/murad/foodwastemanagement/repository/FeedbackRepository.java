@@ -1,10 +1,10 @@
 package io.murad.foodwastemanagement.repository;
 
-import io.murad.foodwastemanagement.model.Food;
+import io.murad.foodwastemanagement.model.Feedback;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FoodRepository extends JpaRepository<Food,Long> {
-    Food findByName(String name);
+public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 }
+

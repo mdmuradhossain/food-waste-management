@@ -27,4 +27,12 @@ public class FoodService {
     public void deleteById(Long id) {
         foodRepository.deleteById(id);
     }
+
+    public Food findByTitle(String title) {
+        return foodRepository.findByName(title);
+    }
+
+    public Food findById(Long id) {
+        return foodRepository.findById(id).get();
+    }
 }

@@ -2,7 +2,6 @@ package io.murad.foodwastemanagement.controller;
 
 import io.murad.foodwastemanagement.model.Food;
 import io.murad.foodwastemanagement.service.FoodService;
-import io.murad.foodwastemanagement.utility.Helper;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +30,16 @@ public class FoodController {
         return "foods/display_foods";
     }
 
+    @GetMapping("/food/{title}")
+    public String showFood(@PathVariable("title") String title, Model model) {
+        Food food = foodService.findByTitle(title);
+        if (food == null) {
+            throw new RuntimeException("Food is null");
+        }
+        model.addAttribute("food",food);
+        return "foods/show_food";
+    }
+
     @GetMapping("/foods/showAddFoodForm")
     public String addFood(Model model) {
         model.addAttribute("food", new Food());
@@ -45,7 +54,7 @@ public class FoodController {
     }
 
     @PutMapping("/foods/{id}")
-    public String updateFood(@PathVariable Long id, @ModelAttribute("food") Food updatedFood) {
+    public String updateFood(@PathVariable("id") Long id, @ModelAttribute("food") Food updatedFood) {
         updatedFood.setId(id);
         foodService.save(updatedFood);
         return "Food Updated";

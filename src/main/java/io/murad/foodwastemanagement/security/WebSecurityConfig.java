@@ -22,14 +22,17 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) ->
-                        authz.requestMatchers("/","/header", "/register", "/profile", "/user").permitAll()
+                        authz.requestMatchers("/", "/header", "/register", "/profile", "/user", "/foods", "/category/all").permitAll()
                                 .requestMatchers("/donor-dashboard/**").hasRole("DONOR")
-                                .requestMatchers("/foods/**").hasRole("DONOR")
+                                .requestMatchers("/category/showCategoryForm").hasRole("DONOR")
+                                .requestMatchers("/category/add").hasRole("DONOR")
                                 .requestMatchers("/cart/**").hasAnyRole("DONOR", "CONSUMER")
                                 .requestMatchers("/order/**").hasAnyRole("DONOR", "CONSUMER")
                                 .requestMatchers("/consumer-dashboard/**").hasRole("CONSUMER")
                                 .anyRequest()
-                                .authenticated()
+                                .permitAll()
+//                                .authenticated()
+
 
                 )
                 .formLogin(login ->
