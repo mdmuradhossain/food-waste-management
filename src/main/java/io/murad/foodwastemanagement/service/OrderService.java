@@ -51,6 +51,7 @@ public class OrderService {
             });
             order.setUser(user); // Associate the User with the Order
             order.setItems(items);
+            order.setIsProcessing(true);
             orderRepository.save(order); // Save the Order
 
             for (CartItem item : items) {
@@ -69,5 +70,13 @@ public class OrderService {
     public List<Order> getOrdersByUsername(String username) {
         User user = userRepository.findByUsername(username);
         return user != null ? user.getOrders() : new ArrayList<>();
+    }
+
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    public Order getOrder(Long id) {
+        return orderRepository.findById(id).get();
     }
 }

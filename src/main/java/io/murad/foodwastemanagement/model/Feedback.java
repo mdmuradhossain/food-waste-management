@@ -18,12 +18,17 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String name;
+
+    @Column
     private String email;
-    private String message;
+
+    @Column
+    private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "feedback_id")
+    @JoinColumn(name = "food_id")
     private Food food;
     // Constructors, getters, and setters
 }

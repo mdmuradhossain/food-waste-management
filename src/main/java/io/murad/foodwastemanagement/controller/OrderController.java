@@ -7,9 +7,7 @@ import io.murad.foodwastemanagement.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -38,6 +36,20 @@ public class OrderController {
         List<Order> orders = orderService.getOrdersByUsername(username);
         model.addAttribute("orders", orders);
         return "orders/order";
+    }
+
+    @GetMapping("/{id}")
+    public String editOrderForm(Model model, @PathVariable("id") Long id) {
+        Order order = orderService.getOrder(id);
+        model.addAttribute("order", order);
+        return "orders/edit_order";
+    }
+
+    @PutMapping("/{id}")
+    public String updateOrder(@PathVariable("id") Long id, @ModelAttribute("order") Order order) {
+        order.setId(id);
+        orderService.save(order);
+        return "redirect:/order";
     }
 }
 

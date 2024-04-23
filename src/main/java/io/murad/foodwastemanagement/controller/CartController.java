@@ -5,10 +5,7 @@ import io.murad.foodwastemanagement.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -28,9 +25,9 @@ public class CartController {
     }
 
     @PostMapping("/addToCart/{foodId}")
-    public String addToCart(@PathVariable("foodId") Long foodId, Principal principal) {
+    public String addToCart(@PathVariable("foodId") Long foodId, Principal principal, @RequestParam("quantity") int quantity) {
         String username = principal.getName();
-        cartService.addToCart(username, foodId);
+        cartService.addToCart(username, foodId, quantity);
         return "redirect:/cart";
     }
 

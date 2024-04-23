@@ -41,40 +41,37 @@
 
 <div class="album py-5 bg-light" th:fragment="food">
     <div class="container">
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="food : ${foods}">
-            <a th:href="@{/food/{title}(title=${food.name})}">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c"/>
-                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                        </svg>
-
-                        <div class="card-body">
-                            <h3 class="mb-0" th:text="${food.name}"></h3>
-                            <p class="card-text" th:text="${food.description}"></p>
-                            <p class="card-text"><strong th:text="${food.price}"></strong></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <form th:action="@{/cart/addToCart/{foodId}(foodId=${food.id})}" method="post">
-                                        <input type="hidden" name="foodId" th:value="${food.id}">
-                                        <p class="card-text">Quantity: <input type="number" name="quantity" value="1"
-                                                                              min="1"></p>
-                                        <button type="button" class="btn btn-success">Add to Cart</button>
-                                    </form>
-                                </div>
+            <!--            <a th:href="@{/food/{title}(title=${food.name})}">-->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="200"
+                         th:src="@{'/getFile/'+ ${food.imageName}}" th:alt="${food.name}"/>
+                    <div class="card-body">
+                        <a th:href="@{/food/{id}(id=${food.id})}"><h3 class="mb-0" th:text="${food.name}"></h3></a>
+                        <p class="card-text" th:if="${food.quantity > 0}" th:text="${food.description}"></p>
+                        <p class="card-text"><strong th:text="${food.price}"></strong></p>
+                        <span class="card-text text-danger" th:if="${food.quantity == 0}">Out of Stock</span>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group" th:if="${food.quantity > 0}">
+                                <form th:action="@{/cart/addToCart/{foodId}(foodId=${food.id})}" method="post">
+                                    <input type="hidden" name="foodId" th:value="${food.id}">
+                                    <p class="card-text">Quantity: <input type="number" name="quantity" value="1"
+                                                                          min="1"></p>
+                                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                                </form>
+                                <a th:href="@{/food/{id}(id=${food.id})}">
+                                    <button type="button" class="btn btn-primary">View</button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 </div>
-
+<div th:replace="~{header/header :: js-links}"></div>
 <!-- Include any necessary JavaScript files -->
 <script>
     // const msg = "[[${message}]]";

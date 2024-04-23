@@ -1,6 +1,7 @@
 package io.murad.foodwastemanagement.service;
 
 import io.murad.foodwastemanagement.model.Food;
+import io.murad.foodwastemanagement.model.User;
 import io.murad.foodwastemanagement.repository.FoodRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class FoodService {
 
     @Autowired
     private FoodRepository foodRepository;
+
     public List<Food> findAll() {
         return foodRepository.findAll();
     }
@@ -34,5 +36,9 @@ public class FoodService {
 
     public Food findById(Long id) {
         return foodRepository.findById(id).get();
+    }
+
+    public List<Food> getFoodByUser(User user) {
+        return foodRepository.findFoodsByUser(user);
     }
 }

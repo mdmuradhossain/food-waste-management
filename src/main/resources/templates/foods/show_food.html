@@ -6,5 +6,27 @@
 </head>
 <body>
         <p th:text="${food.name}"></p>
+        <form th:action="@{/feedback/new}" th:object="${feedback}" method="post">
+            <input type="hidden" name="title" th:value="${food.name}">
+            <input type="hidden" name="id" th:value="${food.id}">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="write your name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">Write Your Feedback</label>
+                <textarea class="form-control" id="feedback" aria-describedby="feedback" placeholder="write your feedback" name="comment"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Write</button>
+        </form>
+
+        <div th:each="feedback : ${food.feedbacks}">
+            <p th:text="${feedback.comment}"></p>
+        </div>
 </body>
 </html>

@@ -33,6 +33,13 @@ public class Food {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column
+    private String imageName;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

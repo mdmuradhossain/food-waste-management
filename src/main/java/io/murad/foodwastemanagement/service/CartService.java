@@ -36,7 +36,7 @@ public class CartService {
     }
 
     @Transactional
-    public void addToCart(String username, Long foodId) {
+    public void addToCart(String username, Long foodId, int quantity) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
             Food food = foodRepository.findById(foodId).orElseThrow(()-> new NoSuchElementException("Food is empty"));
@@ -52,12 +52,12 @@ public class CartService {
                 CartItem cartItem = cartItemRepository.findByCartAndFood(cart, food);
                 if (cartItem != null) {
                     // Increment the quantity if the item is already in the cart
-                    cartItem.setQuantity(cartItem.getQuantity() + 1);
+                    cartItem.setQuantity(cartItem.getQuantity() + quantity);
                 } else {
                     // Create a new cart item and add it to the cart
                     cartItem = new CartItem();
                     cartItem.setFood(food);
-                    cartItem.setQuantity(1);
+                    cartItem.setQuantity(quantity);
                     cartItem.setCart(cart);
                     cart.getItems().add(cartItem); // Add the item to the cart
                 }

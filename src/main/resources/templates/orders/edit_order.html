@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Update food delivery</h1>
+<form action="#" th:action="@{/order/{id}(id=${order.id})}" th:object="${order}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div class="custom-control custom-radio">
+        <input type="radio" id="customRadio1" name="isDelivered" class="custom-control-input">
+        <label class="custom-control-label" for="customRadio1">Yes</label>
+    </div>
+    <div class="custom-control custom-radio">
+        <input type="radio" id="customRadio2" name="isDelivered" class="custom-control-input">
+        <label class="custom-control-label" for="customRadio2">No</label>
+    </div>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>
