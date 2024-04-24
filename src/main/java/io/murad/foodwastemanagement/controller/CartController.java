@@ -20,6 +20,7 @@ public class CartController {
     public String viewCart(Model model, Principal principal) {
         String username = principal.getName();
         Cart cart = cartService.getCartByUsername(username);
+//        System.out.println(cart.getUser().getRole());
         model.addAttribute("cart", cart);
         return "carts/cart";
     }

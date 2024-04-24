@@ -33,7 +33,9 @@
                     <strong>0.00</strong>
                 </li>
             </ul>
-
+            <div>
+                <a th:href="@{/foods}"><button type="button" class="w-100 btn btn-primary btn-lg" value="Continue Adding to cart">Continue Adding to cart</button></a>
+            </div>
             <div th:if="${!cart.items.isEmpty()}">
                 <form th:action="@{/order/placeOrder}" method="post" class="card p-2">
                     <input type="submit" class="w-100 btn btn-primary btn-lg" value="Continue Placing Order">
@@ -71,5 +73,6 @@
 <!--        <input type="submit" class="w-100 btn btn-primary btn-lg" value="Continue Placing Order">-->
 <!--    </form>-->
 <!--</div>-->
+<div th:replace="~{header/header :: js-links}"></div>
 </body>
 </html>

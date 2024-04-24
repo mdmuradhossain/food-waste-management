@@ -49,9 +49,9 @@ public class OrderService {
                 item.setOrder(order); // Associate the Order with each CartItem
                 item.setCart(null); // Dissociate the CartItem from the Cart
             });
+            order.setIsProcessing(true);
             order.setUser(user); // Associate the User with the Order
             order.setItems(items);
-            order.setIsProcessing(true);
             orderRepository.save(order); // Save the Order
 
             for (CartItem item : items) {
@@ -78,5 +78,9 @@ public class OrderService {
 
     public Order getOrder(Long id) {
         return orderRepository.findById(id).get();
+    }
+
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 }

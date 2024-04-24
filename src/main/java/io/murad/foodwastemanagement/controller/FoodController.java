@@ -81,11 +81,12 @@ public class FoodController {
     }
 
     @PostMapping("/foods/add")
-    public String addFood(@ModelAttribute("food") Food food, Model model, Principal principal,@RequestParam("file") MultipartFile file) throws IOException {
+    public String addFood(@ModelAttribute("food") Food food, Model model, Principal principal, @RequestParam("file") MultipartFile file) throws IOException {
         String username = principal.getName();
         User user = userService.getUser(username);
         food.setUser(user);
-
+//        Category category = categoryService.getCategory(id);
+//        food.setCategory(category);
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         food.setImageName(fileName);
         foodService.save(food);
@@ -113,8 +114,9 @@ public class FoodController {
         return "Food Updated";
     }
 
-    @DeleteMapping("/foods/{id}")
-    public void deleteFood(@PathVariable("id") Long id) {
+    @RequestMapping("/foods/delete/{id}")
+    public String deleteFood(@PathVariable("id") Long id) {
         foodService.deleteById(id);
+        return "redirect:/foods-by-donor";
     }
 }

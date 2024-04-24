@@ -37,6 +37,7 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                     <li><a class="dropdown-item" th:href="@{${#authorization.expression('hasRole(''ROLE_DONOR'')') ? '/donor-dashboard' : '/consumer-dashboard'}}">Dashboard</a></li>
+                    <li><a class="dropdown-item" th:href="@{/cart}">View Food Cart</a></li>
                     <li><a class="dropdown-item" th:href="@{/{username}(username=${#authentication.principal.username})}">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>

@@ -36,6 +36,9 @@ public class Food {
     @Column
     private String imageName;
 
+    @Column
+    private String pickupPoint;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -9,48 +9,51 @@
 <body>
 <div th:replace="~{header/header :: header}"></div>
 <h1 class="text-center">Food List</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="food : ${foods}">
-        <td th:text="${food.name}"></td>
-        <td th:text="${food.description}"></td>
-        <td th:text="${food.price}"></td>
-        <td>
-            <span th:if="${food.quantity > 0}" th:text="${food.quantity}"></span>
-            <span th:if="${food.quantity == 0}" class="out-of-stock">Out of Stock</span>
-        </td>
-        <td th:if="${food.quantity > 0}">
-            <form th:action="@{/cart/addToCart/{foodId}(foodId=${food.id})}" method="post">
-                <input type="hidden" name="foodId" th:value="${food.id}">
-                <input type="number" name="quantity" value="1" min="1">
-                <button type="submit">Add to Cart</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>Quantity</th>-->
+
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="food : ${foods}">-->
+<!--        <td th:text="${food.name}"></td>-->
+<!--        <td th:text="${food.description}"></td>-->
+<!--        <td th:text="${food.price}"></td>-->
+<!--        <td>-->
+<!--            <span th:if="${food.quantity > 0}" th:text="${food.quantity}"></span>-->
+<!--            <span th:if="${food.quantity == 0}" class="out-of-stock">Out of Stock</span>-->
+<!--        </td>-->
+<!--        <td th:if="${food.quantity > 0}">-->
+<!--            <form th:action="@{/cart/addToCart/{foodId}(foodId=${food.id})}" method="post">-->
+<!--                <input type="hidden" name="foodId" th:value="${food.id}">-->
+<!--                <input type="number" name="quantity" value="1" min="1">-->
+<!--                <button type="submit">Add to Cart</button>-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
 
 <div class="album py-5 bg-light" th:fragment="food">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="food : ${foods}">
+<!--        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="food : ${foods}">-->
+        <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <!--            <a th:href="@{/food/{title}(title=${food.name})}">-->
-            <div class="col">
+            <div class="col" th:each="food : ${foods}">
                 <div class="card shadow-sm">
                     <img class="bd-placeholder-img card-img-top" width="100%" height="200"
-                         th:src="@{'/getFile/'+ ${food.imageName}}" th:alt="${food.name}"/>
+                    th:src="@{'/getFile/'+ ${food.imageName}}" th:alt="${food.name}"/>
                     <div class="card-body">
                         <a th:href="@{/food/{id}(id=${food.id})}"><h3 class="mb-0" th:text="${food.name}"></h3></a>
-                        <p class="card-text" th:if="${food.quantity > 0}" th:text="${food.description}"></p>
+                        <p class="card-text" th:text="${food.description}"></p>
                         <p class="card-text"><strong th:text="${food.price}"></strong></p>
+                        <p class="card-text" th:if="${food.quantity > 0}" th:text="${food.quantity}"></p>
                         <span class="card-text text-danger" th:if="${food.quantity == 0}">Out of Stock</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group" th:if="${food.quantity > 0}">
@@ -60,10 +63,10 @@
                                                                           min="1"></p>
                                     <button type="submit" class="btn btn-success">Add to Cart</button>
                                 </form>
-                                <a th:href="@{/food/{id}(id=${food.id})}">
-                                    <button type="button" class="btn btn-primary">View</button>
-                                </a>
                             </div>
+                            <a th:href="@{/food/{id}(id=${food.id})}">
+                                <button type="button" class="btn btn-primary">View</button>
+                            </a>
                         </div>
                     </div>
                 </div>

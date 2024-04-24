@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/category/showCategoryForm").hasRole("DONOR")
                                 .requestMatchers("/category/add").hasRole("DONOR")
                                 .requestMatchers("/cart/**").hasAnyRole("DONOR", "CONSUMER")
+                                .requestMatchers("/cart/**").hasRole("CONSUMER")
                                 .requestMatchers("/order/**").hasAnyRole("DONOR", "CONSUMER")
                                 .requestMatchers("/consumer-dashboard/**").hasRole("CONSUMER")
                                 .anyRequest()
@@ -52,7 +53,7 @@ public class WebSecurityConfig {
                                 .invalidateHttpSession(true)
                                 .clearAuthentication(true)
                                 .deleteCookies("JSESSIONID")
-                                .logoutSuccessUrl("/login?logout")
+                                .logoutSuccessUrl("/login")
                 );
 //                .authenticationProvider(authenticationProvider);
         http.userDetailsService(userDetailsService);
